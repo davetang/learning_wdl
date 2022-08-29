@@ -8,12 +8,19 @@ set -euo pipefail
 
 # https://stackoverflow.com/questions/2937407/test-whether-a-glob-has-any-matches-in-bash/34195247#34195247
 if compgen -G "openlogic-openjdk*" > /dev/null; then
-   >&2 echo Directory openlogic-openjdk* already exists
+   >&2 echo openlogic-openjdk* already exists
 else
    tarball=openlogic-openjdk-8u262-b10-linux-x64.tar.gz
    wget -c https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u262-b10/${tarball}
    tar xzf ${tarball}
    rm ${tarball}
+fi
+
+if [[ -L java ]]; then
+   >&2 echo java symlink already exists
+else
+   >&2 echo Creating java symlink
+   ln -s openlogic-openjdk*/bin/java .
 fi
 
 >&2 echo Done
