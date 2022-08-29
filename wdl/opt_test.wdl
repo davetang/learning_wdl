@@ -35,9 +35,8 @@ task echo {
       # one way to include optional parameters
       echo ~{"my_second_word is [" + my_second_word + "]"} >> ~{outfile}
 
-      # another way using defined which can be used with if-else but provides
-      # no string interpolation
-      echo ~{if defined(my_other_word) then "~my_other_word is defined" else "my_other_word is not defined"} >> ~{outfile}
+      # another way using defined which can be used with if-else
+      echo ~{if defined(my_other_word) then "[~{my_other_word}] is defined" else "my_other_word is not defined"} >> ~{outfile}
 
       echo ~{if my_true then "my_true is [~{my_true}]" else "my_true is false"} >> ~{outfile}
       echo ~{if my_false then "my_false is [~{my_false}]" else "my_false is false"} >> ~{outfile}
