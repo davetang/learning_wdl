@@ -1,0 +1,10 @@
+{
+  "opt_test.echo.my_second_word": "second word",
+  "opt_test.echo.my_other_word": "other word",
+  "opt_test.echo.my_int": 8128,
+  "opt_test.echo.my_true": true,
+  "opt_test.echo.my_false": false,
+  "opt_test.echo.my_word": "necessary",
+  "opt_test.echo.outfile": "test.txt"
+}
+
