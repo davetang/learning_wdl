@@ -1,0 +1,7 @@
+{
+  "sub_test.echo.fastq1": "data/long_1.fastq.gz",
+  "sub_test.echo.fastq2": "data/long_2.fastq.gz",
+  "sub_test.echo.fq1": "data/short_1.fq.gz",
+  "sub_test.echo.fq2": "data/short_2.fq.gz"
+}
+
