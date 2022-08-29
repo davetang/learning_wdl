@@ -1,0 +1,5 @@
+{
+  "cond_task.say_hello": true,
+  "cond_task.outfile": "test.txt"
+}
+
