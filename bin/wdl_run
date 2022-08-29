@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage(){
+   echo "Usage: $0 <file.wdl> [file.json]"
+   exit 1
+}
+
+num_param=1
+if [[ $# -lt ${num_param} ]]; then
+   usage
+fi
+
+wdl=$1
+if [[ $# -gt ${num_param} ]]; then
+   json=$2
+else
+   json=
+fi
+
+for file in ${wdl} ${json}; do
+   if [[ ! -e ${file} ]]; then
+      >&2 echo ${file} does not exist
+      exit 1
+   fi
+done
+
+base=$(basename ${wdl} .wdl)
+dir=$(dirname ${wdl})
+cromwell=${dir}/../bin/cromwell*.jar
+java=${dir}/../bin/java
+
+if [[ -z ${json} ]]; then
+   ${java} -jar ${cromwell} run ${wdl}
+else
+   ${java} -jar ${cromwell} run ${wdl} -i ${json}
+fi
+
+>&2 echo Done
+exit 0
+

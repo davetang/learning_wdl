@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage(){
+   echo "Usage: $0 <file.wdl>"
+   exit 1
+}
+
+num_param=1
+if [[ $# -ne ${num_param} ]]; then
+   usage
+fi
+
+file=$1
+
+if [[ ! -e ${file} ]]; then
+   >&2 echo ${file} does not exist
+   exit 1
+fi
+
+if [[ ! ${file} =~ \.wdl$ ]]; then
+   >&2 echo ${file} does not have a .wdl extension
+   exit 1
+fi
+
+base=$(basename ${file} .wdl)
+dir=$(dirname ${file})
+json=${dir}/../json/${base}.json
+womtool=${dir}/../bin/womtool*.jar
+java=${dir}/../bin/java
+
+if [[ -e ${json} ]]; then
+   >&2 echo ${json} already exists
+   >&2 echo -e "Printing to STDOUT\n"
+   ${java} -jar $womtool inputs ${file}
+else
+   >&2 echo Generating ${json}
+   ${java} -jar $womtool inputs ${file} > ${json}
+fi
+
+>&2 echo Done
+exit 0
+
