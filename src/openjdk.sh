@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 #
-# OpenLogic provides and supports free distributions of OpenJDK 8
-# see https://www.openlogic.com/openjdk-downloads
+# OpenJDK version 9 to 15 are available at https://jdk.java.net/archive/
+# Visit the URL above to obtain the relevant download link
 #
 
 set -euo pipefail
 
 # https://stackoverflow.com/questions/2937407/test-whether-a-glob-has-any-matches-in-bash/34195247#34195247
-if compgen -G "openlogic-openjdk*" > /dev/null; then
-   >&2 echo openlogic-openjdk* already exists
+if compgen -G "jdk-*" > /dev/null; then
+   >&2 echo jdk-* already exists
 else
-   tarball=openlogic-openjdk-8u262-b10-linux-x64.tar.gz
-   wget -c https://builds.openlogic.com/downloadJDK/openlogic-openjdk/8u262-b10/${tarball}
+   tarball=openjdk-11.0.2_linux-x64_bin.tar.gz
+   wget -c https://download.java.net/java/GA/jdk11/9/GPL/${tarball}
    tar xzf ${tarball}
    rm ${tarball}
 fi
@@ -20,7 +20,7 @@ if [[ -L java ]]; then
    >&2 echo java symlink already exists
 else
    >&2 echo Creating java symlink
-   ln -s openlogic-openjdk*/bin/java .
+   ln -s jdk-*/bin/java .
 fi
 
 >&2 echo Done
